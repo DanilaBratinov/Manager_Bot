@@ -1,4 +1,4 @@
-host = "91.217.77.190"
-user = "telebot"
+host = "localhost"
+user = "root"
 password = "s4CFMhF#"
 db_name = "tg"
