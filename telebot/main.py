@@ -93,7 +93,7 @@ try:
             case "Главная":
                 bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}")
 
-
+# Test
 
     def add_task_one(message):
         bot.send_message(message.chat.id, 'Введите название задачи:')
