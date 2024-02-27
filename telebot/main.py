@@ -69,7 +69,7 @@ try:
         with connection.cursor() as cursor:
             cursor.execute(f"CREATE TABLE {str(db)} (id int AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), time VARCHAR(255), date VARCHAR(255), lon VARCHAR(255), lat VARCHAR(255))")
             connection.commit()
-        bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новоти:\n{news.get_news()}", reply_markup = markup)
+        bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}", reply_markup = markup)
 
 
     @bot.message_handler(content_types=['text'])
@@ -91,7 +91,7 @@ try:
                     bot.send_message(chatID, "Список очищен!")
 
             case "Главная":
-                bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новоти:\n{news.get_news()}")
+                bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}")
 
 
 
