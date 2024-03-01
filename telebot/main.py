@@ -125,7 +125,7 @@ try:
         with connection.cursor() as cursor:
             cursor.execute(f"INSERT INTO {str(db)} (time, name, date) VALUES ('{task[1]}', '{task[0]}', '{task[2]}');")
             connection.commit()
-
+#a
         markup = types.ReplyKeyboardMarkup(resize_keyboard = True)
         item1 = types.KeyboardButton('Добавить задачу')
         item2 = types.KeyboardButton('Посмотреть задачи')
