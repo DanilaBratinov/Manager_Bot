@@ -13,7 +13,7 @@ bot = telebot.TeleBot(token)
 def get_usd_to_rub_exchange_rate():
     response = requests.get("https://www.cbr-xml-daily.ru/daily_json.js")
     data = response.json()
-    return data['Valute']['USD']['Value']
+    return data['Valute']['TON']['Value']
 
 usd_to_rub_exchange_rate = get_usd_to_rub_exchange_rate()
 
