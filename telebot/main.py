@@ -3,7 +3,7 @@ import pendulum
 import news
 import telebot
 from telebot import types
-import sleep
+# import sleep
 
 import pymysql
 from config import host, user, password, db_name
