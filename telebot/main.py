@@ -3,6 +3,7 @@ import pendulum
 import news
 import telebot
 from telebot import types
+import sleep
 
 import pymysql
 from config import host, user, password, db_name
@@ -10,12 +11,25 @@ from config import host, user, password, db_name
 token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
 bot = telebot.TeleBot(token)
 
-def get_usd_to_rub_exchange_rate():
-    response = requests.get("https://www.cbr-xml-daily.ru/daily_json.js")
+def get_ton_price():
+    url = 'https://api.coingecko.com/api/v3/simple/price?ids=ton-crystal&vs_currencies=usd'
+    response = requests.get(url)
     data = response.json()
-    return data['Valute']['TON']['Value']
+    ton_price = data['ton-crystal']['usd']
+    return ton_price
 
-usd_to_rub_exchange_rate = get_usd_to_rub_exchange_rate()
+    # while True:
+    #     ton_price = get_ton_price()
+    #     print(f'Current TON price: USD')
+    #     time.sleep(1)
+
+def get_usd_to_rub_exchange_rate():
+    # response = requests.get("https://www.cbr-xml-daily.ru/daily_json.js")
+    # data = response.json()
+    # return data['Valute']['USD']['Value']
+
+# usd_to_rub_exchange_rate = get_usd_to_rub_exchange_rate()
+    usb_to_rub_exchange_rate = get_ton_price()
 
 def get_weather(locate):
     api_key = '28ede8c4626bcba101f47c928f53f1b9'
