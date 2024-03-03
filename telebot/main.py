@@ -8,18 +8,11 @@ token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
 bot = telebot.TeleBot(token)
 
 try:
-    connection = pymysql.connect(
-        host = host,
-        port = 3306,
-        user = user,
-        password = password,
-        database = db_name,
-        cursorclass = pymysql.cursors.DictCursor
-    )
+    database.connection()
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
-        database.create_table(connection, message)
+        database.create_table(database.connection, message)
         commands.start(message)
         
 

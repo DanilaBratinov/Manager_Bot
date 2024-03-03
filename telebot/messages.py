@@ -1,11 +1,13 @@
 import web
 import news
-
+import database
 from user import get_name
 
 def hello(message):
     hello_message = f"""
 ☘️Привет, {get_name(message)}☘️
+******************************
+{database.show_tasks(database.connection, database.get_db)}
 
 ⌚️Сегодняшняя дата: {web.get_date('Сегодня').format('DD.MM.YYYY')}
 {web.get_weather('Москва')}
@@ -14,5 +16,3 @@ def hello(message):
 """
 
     return hello_message
-
-
