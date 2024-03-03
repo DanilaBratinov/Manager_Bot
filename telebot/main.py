@@ -30,10 +30,8 @@ try:
                 bot.send_message(chatID, "Список очищен")
 
             case "Главная":
-                bot.send_message(chatID, messages.hello)
+                bot.send_message(chatID, messages.hello(message))
 
-
-        
 
 
 except Exception as ex:
