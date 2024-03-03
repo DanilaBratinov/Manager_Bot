@@ -1,13 +1,6 @@
 def create_table(connection, message):
     db = (f"id{message.from_user.id}")
 
-    def check_table():
-        with connection.cursor() as cursor:
-            query = f"SHOW TABLES LIKE '{db}'"
-            cursor.execute(query)
-            result = cursor.fetchone()
-            return result
-
     with connection.cursor() as cursor:
         if check_table(connection):
             print("существует")
