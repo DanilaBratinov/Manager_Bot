@@ -16,3 +16,10 @@ def get_weather(locate):
 
     weather = f'☃️Температура в {locate}: {temperature}°C\n☃️Температура дома: {temperature2}°C\n'
     return weather
+
+def get_usd_to_rub_exchange_rate():
+    response = requests.get("https://www.cbr-xml-daily.ru/daily_json.js")
+    data = response.json()
+    
+    usd_to_rub_exchange_rate = data['Valute']['USD']['Value']
+    return usd_to_rub_exchange_rate
