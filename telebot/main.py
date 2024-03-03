@@ -25,7 +25,6 @@ try:
 
 
 except Exception as ex:
-
     print("Ошибка подключения к базе данных...")
     print(ex)
 
