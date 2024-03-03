@@ -12,7 +12,7 @@ try:
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
-        database.create_table(database.connection, message)
+        database.create_table(message)
         commands.start(message)
 
     @bot.message_handler(content_types=['text'])
