@@ -3,6 +3,7 @@ import pendulum
 import news
 import telebot
 from telebot import types
+import web
 
 import pymysql
 from config import host, user, password, db_name
@@ -17,22 +18,22 @@ def get_usd_to_rub_exchange_rate():
 
 usd_to_rub_exchange_rate = get_usd_to_rub_exchange_rate()
 
-def get_weather(locate):
-    api_key = '28ede8c4626bcba101f47c928f53f1b9'
-    url = f'http://api.openweathermap.org/data/2.5/weather?q={locate}&appid={api_key}&units=metric'
-    url2 = f'http://api.openweathermap.org/data/2.5/weather?lat=56.051012&lon=37.992539&appid={api_key}&units=metric'
+# def get_weather(locate):
+#     api_key = '28ede8c4626bcba101f47c928f53f1b9'
+#     url = f'http://api.openweathermap.org/data/2.5/weather?q={locate}&appid={api_key}&units=metric'
+#     url2 = f'http://api.openweathermap.org/data/2.5/weather?lat=56.051012&lon=37.992539&appid={api_key}&units=metric'
 
-    response = requests.get(url)
-    response2 = requests.get(url2)
+#     response = requests.get(url)
+#     response2 = requests.get(url2)
 
-    data = response.json()
-    data2 = response2.json()
+#     data = response.json()
+#     data2 = response2.json()
 
-    temperature = data['main']['temp']
-    temperature2 = data2['main']['temp']
+#     temperature = data['main']['temp']
+#     temperature2 = data2['main']['temp']
 
-    weather = f'☃️Температура в {locate}: {temperature}°C\n☃️Температура дома: {temperature2}°C\n'
-    return weather
+#     weather = f'☃️Температура в {locate}: {temperature}°C\n☃️Температура дома: {temperature2}°C\n'
+#     return weather
 
 def get_date(when):
     match when:
@@ -69,7 +70,7 @@ try:
         with connection.cursor() as cursor:
             cursor.execute(f"CREATE TABLE {str(db)} (id int AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), time VARCHAR(255), date VARCHAR(255), lon VARCHAR(255), lat VARCHAR(255))")
             connection.commit()
-        bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}", reply_markup = markup)
+        bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}", reply_markup = markup)
 
 
     @bot.message_handler(content_types=['text'])
@@ -91,7 +92,7 @@ try:
                     bot.send_message(chatID, "Список очищен!")
 
             case "Главная":
-                bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}")
+                bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}")
 
 
     def add_task_one(message):
