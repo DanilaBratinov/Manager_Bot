@@ -19,9 +19,7 @@ def get_db(message):
 
     return db
 
-def create_table(message):
-    db = get_db(message)
-
+def create_table(db):
     connection = pymysql.connect(
         host = host,
         port = 3306,
@@ -37,8 +35,7 @@ def create_table(message):
 
 
 
-def show_tasks(message):
-    db = get_db(message)
+def show_tasks(db):
     with connection.cursor() as cursor:
         select_all_rows = f"SELECT time, name, date FROM {str(db)} WHERE date = '{web.get_date('Сегодня')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
         cursor.execute(select_all_rows)
