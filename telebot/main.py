@@ -18,7 +18,8 @@ try:
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
-        commands.start_message(message)
+        commands.start(message)
+        
 
 except Exception as ex:
     print("Ошибка подключения к базе данных...")

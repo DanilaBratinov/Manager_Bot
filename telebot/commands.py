@@ -1,10 +1,13 @@
 import telebot
+import messages
+import web
 from telebot import types
+
 token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
 bot = telebot.TeleBot(token)
 
 
-def start_message(message):
+def start(message):
     chatID = message.chat.id
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard = True)
@@ -15,4 +18,4 @@ def start_message(message):
 
     markup.add(item1, item2, item3, item4)
 
-    bot.send_message(chatID, "Работает")
+    bot.send_message(chatID, messages.hello_message)
