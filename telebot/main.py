@@ -11,6 +11,15 @@ from config import host, user, password, db_name
 token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
 bot = telebot.TeleBot(token)
 
+# def get_usd_to_rub_exchange_rate():
+#     response = requests.get("https://www.cbr-xml-daily.ru/daily_json.js")
+#     data = response.json()
+
+#     usd_to_rub_exchange_rate = data['Valute']['USD']['Value']
+#     return usd_to_rub_exchange_rate
+
+get_usd = web.get_usd_to_rub_exchange_rate()
+
 def get_date(when):
     match when:
         case 'Сегодня':
@@ -46,7 +55,7 @@ try:
         with connection.cursor() as cursor:
             cursor.execute(f"CREATE TABLE {str(db)} (id int AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), time VARCHAR(255), date VARCHAR(255), lon VARCHAR(255), lat VARCHAR(255))")
             connection.commit()
-        bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(web.get_usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}", reply_markup = markup)
+        bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(get_usd)}₽\n\nАктуальные новости:\n{news.get_news()}", reply_markup = markup)
 
 
     @bot.message_handler(content_types=['text'])
@@ -68,7 +77,7 @@ try:
                     bot.send_message(chatID, "Список очищен!")
 
             case "Главная":
-                bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(web.get_usd_to_rub_exchange_rate)}₽\n\nАктуальные новости:\n{news.get_news()}")
+                bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(get_usd)}₽\n\nАктуальные новости:\n{news.get_news()}")
 
 
     def add_task_one(message):
