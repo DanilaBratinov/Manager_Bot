@@ -1,9 +1,10 @@
-import requests
-import pendulum
 import news
 import telebot
 from telebot import types
 import web
+
+from user import get_name
+from user import get_id
 
 import pymysql
 from config import host, user, password, db_name
@@ -11,22 +12,7 @@ from config import host, user, password, db_name
 token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
 bot = telebot.TeleBot(token)
 
-# def get_usd_to_rub_exchange_rate():
-#     response = requests.get("https://www.cbr-xml-daily.ru/daily_json.js")
-#     data = response.json()
-
-#     usd_to_rub_exchange_rate = data['Valute']['USD']['Value']
-#     return usd_to_rub_exchange_rate
-
 get_usd = web.get_usd_to_rub_exchange_rate()
-
-def get_date(when):
-    match when:
-        case 'Сегодня':
-            date = pendulum.today('Europe/Moscow').format('DD.MM')
-        case 'Завтра':
-            date = pendulum.tomorrow('Europe/Moscow').format('DD.MM')
-    return date
 
 try:
     connection = pymysql.connect(
@@ -55,7 +41,7 @@ try:
         with connection.cursor() as cursor:
             cursor.execute(f"CREATE TABLE {str(db)} (id int AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), time VARCHAR(255), date VARCHAR(255), lon VARCHAR(255), lat VARCHAR(255))")
             connection.commit()
-        bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(get_usd)}₽\n\nАктуальные новости:\n{news.get_news()}", reply_markup = markup)
+        bot.send_message(chatID, f"☘️Привет, {get_name(message)}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {web.get_date.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(get_usd)}₽\n\nАктуальные новости:\n{news.get_news()}", reply_markup = markup)
 
 
     @bot.message_handler(content_types=['text'])
@@ -77,7 +63,7 @@ try:
                     bot.send_message(chatID, "Список очищен!")
 
             case "Главная":
-                bot.send_message(chatID, f"☘️Привет, {message.from_user.first_name}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {pendulum.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(get_usd)}₽\n\nАктуальные новости:\n{news.get_news()}")
+                bot.send_message(chatID, f"☘️Привет, {get_name(message)}☘️\n\n***********************************{show_tasks(db)}\n***********************************\n\n⌚️Сегодняшняя дата: {web.get_date.today('Europe/Moscow').format('DD.MM.YYYY')}\n\n{web.get_weather('Москва')}\n💸Курс USD: {format(get_usd)}₽\n\nАктуальные новости:\n{news.get_news()}")
 
 
     def add_task_one(message):
@@ -105,9 +91,9 @@ try:
         bot.register_next_step_handler(message, add_task_four)
     #Дата
     def add_task_four(message):
-        task[2] = get_date(message.text)
+        task[2] = web.get_date(message.text)
 
-        db = (f"id{message.from_user.id}")
+        db = (f"id{get_id(message)}")
         with connection.cursor() as cursor:
             cursor.execute(f"INSERT INTO {str(db)} (time, name, date) VALUES ('{task[1]}', '{task[0]}', '{task[2]}');")
             connection.commit()
@@ -123,7 +109,7 @@ try:
     
     def show_tasks(db):
         with connection.cursor() as cursor:
-            select_all_rows = f"SELECT time, name, date FROM {str(db)} WHERE date = '{get_date('Сегодня')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
+            select_all_rows = f"SELECT time, name, date FROM {str(db)} WHERE date = '{web.get_date('Сегодня')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
             cursor.execute(select_all_rows)
             rows = cursor.fetchall()
             tasks = ['']

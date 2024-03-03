@@ -1,4 +1,5 @@
 import requests
+import pendulum
 
 def get_weather(locate):
     api_key = '28ede8c4626bcba101f47c928f53f1b9'
@@ -23,3 +24,11 @@ def get_usd_to_rub_exchange_rate():
     
     usd_to_rub_exchange_rate = data['Valute']['USD']['Value']
     return usd_to_rub_exchange_rate
+
+def get_date(when):
+    match when:
+        case 'Сегодня':
+            date = pendulum.today('Europe/Moscow').format('DD.MM')
+        case 'Завтра':
+            date = pendulum.tomorrow('Europe/Moscow').format('DD.MM')
+    return date
