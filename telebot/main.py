@@ -1,6 +1,7 @@
 import telebot
 import commands
 import database
+import messages
 
 token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
 bot = telebot.TeleBot(token)
@@ -27,6 +28,9 @@ try:
             case "Очистить список":
                 database.clear_db(get_db)
                 bot.send_message(chatID, "Список очищен")
+
+            case "Главная":
+                bot.send_message(chatID, messages.hello)
 
 
         
