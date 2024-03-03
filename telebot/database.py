@@ -3,17 +3,6 @@ import pymysql
 
 from config import host, user, password, db_name
 
-def connection():
-    connection = pymysql.connect(
-        host = host,
-        port = 3306,
-        user = user,
-        password = password,
-        database = db_name,
-        cursorclass = pymysql.cursors.DictCursor
-    )
-    return connection
-
 def get_db(message):
     db = (f"id{message.from_user.id}")
 
@@ -33,8 +22,6 @@ def create_table(db):
 
         connection.commit()
 
-
-
 def show_tasks(db):
     connection = pymysql.connect(
         host = host,
@@ -45,7 +32,7 @@ def show_tasks(db):
         cursorclass = pymysql.cursors.DictCursor
     )
     with connection.cursor() as cursor:
-        select_all_rows = f"SELECT time, name, date FROM {str(db)} ORDER BY STR_TO_DATE(time, '%H:%i');"
+        select_all_rows = f"SELECT time, name, date FROM {str(db)} WHERE date = '{web.get_date('Сегодня')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
         cursor.execute(select_all_rows)
         rows = cursor.fetchall()
         tasks = ['']
@@ -56,3 +43,17 @@ def show_tasks(db):
         connection.commit()
 
         return ("\n".join(tasks))
+    
+def clear_db(db):
+    connection = pymysql.connect(
+        host = host,
+        port = 3306,
+        user = user,
+        password = password,
+        database = db_name,
+        cursorclass = pymysql.cursors.DictCursor
+    )
+
+    with connection.cursor() as cursor:
+        cursor.execute(f"DELETE FROM {str(db)};")
+        connection.commit()

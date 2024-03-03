@@ -24,6 +24,10 @@ try:
             case "Посмотреть задачи":
                 bot.send_message(chatID, database.show_tasks(get_db))
 
+            case "Очистить список":
+                database.clear_db(get_db)
+                bot.send_message(chatID, "Список очищен")
+
 
         
 
