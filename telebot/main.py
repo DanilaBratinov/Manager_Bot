@@ -3,7 +3,8 @@ import commands
 import database
 import messages
 
-token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
+# token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
+token = '6526866415:AAGgaKPE25fw4DHvD0MBzENf39BYRev3QcE'
 bot = telebot.TeleBot(token)
 
 def get_db(message):
