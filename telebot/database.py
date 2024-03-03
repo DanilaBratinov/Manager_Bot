@@ -37,7 +37,7 @@ def create_table(db):
 
 def show_tasks(db):
     with connection.cursor() as cursor:
-        select_all_rows = f"SELECT time, name, date FROM {str(db)} WHERE date = '{web.get_date('Сегодня')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
+        select_all_rows = f"SELECT time, name, date FROM {str(db)} ORDER BY STR_TO_DATE(time, '%H:%i');"
         cursor.execute(select_all_rows)
         rows = cursor.fetchall()
         tasks = ['']
