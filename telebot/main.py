@@ -37,7 +37,6 @@ try:
                 bot.send_message(chatID, messages.hello(message))
 
 
-
 except Exception as ex:
     print("Ошибка подключения к базе данных...")
     print(ex)
