@@ -19,14 +19,8 @@ try:
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
-        # database.create_table(connection, message)
-        # commands.start(message)
-        with connection.cursor() as cursor:
-            query = f"SHOW TABLES LIKE 'id112'"
-            cursor.execute(query)
-            result = cursor.fetchone()
-            print(result)
-            return result
+        database.create_table(connection, message)
+        commands.start(message)
         
 
 
