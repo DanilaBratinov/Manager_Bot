@@ -36,6 +36,14 @@ def create_table(db):
 
 
 def show_tasks(db):
+    connection = pymysql.connect(
+        host = host,
+        port = 3306,
+        user = user,
+        password = password,
+        database = db_name,
+        cursorclass = pymysql.cursors.DictCursor
+    )
     with connection.cursor() as cursor:
         select_all_rows = f"SELECT time, name, date FROM {str(db)} ORDER BY STR_TO_DATE(time, '%H:%i');"
         cursor.execute(select_all_rows)
@@ -44,6 +52,7 @@ def show_tasks(db):
 
         for row in rows:
             tasks.append("🌵{time} – {name}".format(**row))
+        
         connection.commit()
 
         return ("\n".join(tasks))
