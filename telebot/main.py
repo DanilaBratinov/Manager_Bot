@@ -31,7 +31,7 @@ try:
                 database.clear_db(bot, message)
 
             case "Главная":
-                bot.send_message(chatID, messages.hello(message))
+                bot.send_message(chatID, messages.hello(bot, message))
    
 
 except Exception as ex:
