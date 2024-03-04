@@ -12,7 +12,7 @@ def get_db(message):
     return db
 
 try:
-    database.connection()
+    database.do_connection()
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
@@ -27,13 +27,14 @@ try:
         chatID = message.chat.id
         match message.text:
             case "Добавить задачу":
-                database.add_task_one(bot, message)
+                database.add_task(bot, message)
             case "Посмотреть задачи":
-                bot.send_message(chatID, database.show_tasks(db))
+                # bot.send_message(chatID, database.show_tasks(db))
+                database.show_tasks(bot, message)
 
             case "Очистить список":
-                database.clear_db(get_db)
-                bot.send_message(chatID, "Список очищен")
+                database.clear_db(get_db, bot, message)
+                # bot.send_message(chatID, "Список очищен")
 
             case "Главная":
                 bot.send_message(chatID, messages.hello(message))
