@@ -1,7 +1,7 @@
 import commands
 import database
 import messages
-
+import web
 bot = commands.bot
 
 def get_db(message):
@@ -39,12 +39,12 @@ try:
 
     def add_tasks(message):
         bot.send_message(message.chat.id, 'Введите название задачи:')
-        bot.register_next_step_handler(message, add_task_name(message))
+        bot.register_next_step_handler(message, add_task_name)
     #Название задачи
     def add_task_name(message):
         task[0] = message.text
         bot.send_message(message.chat.id, "Введите время:")
-        bot.register_next_step_handler(message, add_task_time(message))
+        bot.register_next_step_handler(message, add_task_time)
 
     #Время
     def add_task_time(message):
