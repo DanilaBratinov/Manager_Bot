@@ -28,8 +28,9 @@ def create_table(db):
         database = db_name,
         cursorclass = pymysql.cursors.DictCursor
     )
+
     with connection.cursor() as cursor:
-        cursor.execute(f"CREATE TABLE {str(db)} (id int AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), time VARCHAR(255), date VARCHAR(255), lon VARCHAR(255), lat VARCHAR(255))")
+        cursor.execute(f"CREATE TABLE {str(get_db)} (id int AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), time VARCHAR(255), date VARCHAR(255), lon VARCHAR(255), lat VARCHAR(255))")
 
         connection.commit()
 
@@ -43,7 +44,7 @@ def show_tasks(db):
         cursorclass = pymysql.cursors.DictCursor
     )
     with connection.cursor() as cursor:
-        select_all_rows = f"SELECT time, name, date FROM {str(db)} WHERE date = '{web.get_date('Сегодня')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
+        select_all_rows = f"SELECT time, name, date FROM {str(get_db)} WHERE date = '{web.get_date('Сегодня')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
         cursor.execute(select_all_rows)
         rows = cursor.fetchall()
         tasks = ['']
@@ -66,5 +67,5 @@ def clear_db(db):
     )
 
     with connection.cursor() as cursor:
-        cursor.execute(f"DELETE FROM {str(db)};")
+        cursor.execute(f"DELETE FROM {str(get_db)};")
         connection.commit()

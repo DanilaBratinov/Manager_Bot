@@ -17,10 +17,8 @@ try:
     @bot.message_handler(commands=['start'])
     def start_message(message):
         db = (f"id{message.from_user.id}")
-        # database.create_table(db)
-        # commands.start(message)
-        # bot.send_message(message.chat.id, "asd")
-        bot.send_message(message.chat.id, db)
+        database.create_table(db)
+        commands.start(message)
 
 
     @bot.message_handler(content_types=['text'])
