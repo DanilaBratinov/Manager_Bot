@@ -61,7 +61,7 @@ try:
                         
     #Дата
     def add_task_date(message):
-        task[2] = web.get_date(message.text)
+        task[2] = web.get_date(message.text).format('DD.MM.YYYY')
 
         with database.connection.cursor() as cursor:
             cursor.execute(f"INSERT INTO {str(get_db)} (time, name, date) VALUES ('{task[1]}', '{task[0]}', '{task[2]}');")
