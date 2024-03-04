@@ -3,6 +3,7 @@ import pymysql
 
 from config import host, user, password, db_name
 
+# Connect to MySQL-Server
 def connection():
     connection = pymysql.connect(
         host = host,
@@ -14,11 +15,13 @@ def connection():
     )
     return connection
 
+# Get DB-ID user 
 def get_db(message):
     db = (f"id{message.from_user.id}")
 
     return db
 
+# Create table on user
 def create_table(db):
     connection = pymysql.connect(
         host = host,
@@ -34,6 +37,14 @@ def create_table(db):
 
         connection.commit()
 
+# Add task
+def add_task_one(bot, message):
+        bot.send_message(message.chat.id, 'Введите название задачи:')
+        # bot.register_next_step_handler(message, add_task_two)
+
+task = ["", "", ""] 
+
+# Show today tasks
 def show_tasks(db):
     connection = pymysql.connect(
         host = host,
@@ -56,6 +67,7 @@ def show_tasks(db):
 
         return ("\n".join(tasks))
     
+# Clear all task
 def clear_db(db):
     connection = pymysql.connect(
         host = host,

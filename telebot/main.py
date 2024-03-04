@@ -26,6 +26,8 @@ try:
         db = (f"id{message.from_user.id}")
         chatID = message.chat.id
         match message.text:
+            case "Добавить задачу":
+                database.add_task_one(bot, message)
             case "Посмотреть задачи":
                 bot.send_message(chatID, database.show_tasks(db))
 
