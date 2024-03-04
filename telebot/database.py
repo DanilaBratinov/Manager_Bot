@@ -4,17 +4,6 @@ from telebot import types
 from config import host, user, password, db_name
 
 # Connect to MySQL-Server
-def do_connection():
-    connection = pymysql.connect(
-        host = host,
-        port = 3306,
-        user = user,
-        password = password,
-        database = db_name,
-        cursorclass = pymysql.cursors.DictCursor
-    )
-    return connection
-
 connection = pymysql.connect(
         host = host,
         port = 3306,
@@ -41,7 +30,7 @@ def create_table(db):
 # Add task
 def add_task(bot, message):
         bot.send_message(message.chat.id, 'Введите название задачи:')
-        bot.register_next_step_handler(message, add_task_name(bot, message))
+        # bot.register_next_step_handler(message, add_task_name(bot, message))
 
 task = ["", "", ""] 
 

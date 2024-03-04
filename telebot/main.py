@@ -4,7 +4,6 @@ import database
 import messages
 
 token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
-# token = '6526866415:AAGgaKPE25fw4DHvD0MBzENf39BYRev3QcE'
 bot = telebot.TeleBot(token)
 
 def get_db(message):
@@ -12,7 +11,6 @@ def get_db(message):
     return db
 
 try:
-    # database.do_connection()
     database.connection
 
     @bot.message_handler(commands=['start'])
@@ -29,6 +27,8 @@ try:
         match message.text:
             case "Добавить задачу":
                 database.add_task(bot, message)
+                bot.register_next_step_handler(message, database.add_task_name(bot, message))
+
             case "Посмотреть задачи":
                 # bot.send_message(chatID, database.show_tasks(db))
                 database.show_tasks(bot, message)
