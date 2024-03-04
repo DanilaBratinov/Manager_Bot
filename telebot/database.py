@@ -38,7 +38,7 @@ task = ["", "", ""]
 def add_task_name(bot, message):
     task[0] = message.text
     bot.send_message(message.chat.id, "Введите время:")
-    bot.register_next_step_handler(message, add_task_time(bot, message))
+    # bot.register_next_step_handler(message, add_task_time(bot, message))
 
 #Время
 def add_task_time(bot, message):
@@ -51,7 +51,7 @@ def add_task_time(bot, message):
     markup.add(item1, item2)
 
     bot.send_message(message.chat.id, "Выберите дату:", reply_markup = markup)
-    bot.register_next_step_handler(message, add_task_date)
+    # bot.register_next_step_handler(message, add_task_date(bot, message))
     
 #Дата
 def add_task_date(bot, message):

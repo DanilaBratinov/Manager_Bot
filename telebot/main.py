@@ -28,6 +28,11 @@ try:
             case "Добавить задачу":
                 database.add_task(bot, message)
                 bot.register_next_step_handler(message, database.add_task_name(bot, message))
+                bot.register_next_step_handler(message, database.add_task_time(bot, message))
+                bot.register_next_step_handler(message, database.add_task_date(bot, message))
+
+
+
 
             case "Посмотреть задачи":
                 # bot.send_message(chatID, database.show_tasks(db))
