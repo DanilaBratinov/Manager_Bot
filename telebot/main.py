@@ -23,7 +23,7 @@ try:
         chatID = message.chat.id
         match message.text:
             case "Добавить задачу":
-                database.add_tasks(bot, message)
+                database.add_tasks(message)
 
             case "Посмотреть задачи":
                 # bot.send_message(chatID, database.show_tasks(db))
