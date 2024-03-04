@@ -31,9 +31,10 @@ def create_table(db):
 # Add task
 def add_tasks(message):
     bot.send_message(message.chat.id, 'Введите название задачи:')
-    bot.register_next_step_handler(message, add_task_name(message))
     print(message.text)
     print("Тест")
+    bot.register_next_step_handler(message, add_task_name(message))
+
 
 task = ["", "", ""] 
 
