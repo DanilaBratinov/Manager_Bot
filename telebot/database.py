@@ -31,18 +31,18 @@ def create_table(db):
 # Add task
 def add_tasks(message):
     bot.send_message(message.chat.id, 'Введите название задачи:')
-    bot.register_next_step_handler(message, add_task_name(bot, message))
+    bot.register_next_step_handler(message, add_task_name(message))
 
 task = ["", "", ""] 
 
     #Название задачи
-def add_task_name(bot, message):
+def add_task_name(message):
     task[0] = message.text
     bot.send_message(message.chat.id, "Введите время:")
-    bot.register_next_step_handler(message, add_task_time(bot, message))
+    bot.register_next_step_handler(message, add_task_time(message))
 
     #Время
-def add_task_time(bot, message):
+def add_task_time(message):
     task[1] = (message.text)
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard = True)
@@ -52,10 +52,10 @@ def add_task_time(bot, message):
     markup.add(item1, item2)
 
     bot.send_message(message.chat.id, "Выберите дату:", reply_markup = markup)
-    bot.register_next_step_handler(message, add_task_date(bot, message))
+    bot.register_next_step_handler(message, add_task_date(message))
         
     #Дата
-def add_task_date(bot, message):
+def add_task_date(message):
     task[2] = web.get_date(message.text)
 
     with connection.cursor() as cursor:
