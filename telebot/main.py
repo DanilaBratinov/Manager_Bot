@@ -3,8 +3,8 @@ import commands
 import database
 import messages
 
-# token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
-token = '6526866415:AAGgaKPE25fw4DHvD0MBzENf39BYRev3QcE'
+token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
+# token = '6526866415:AAGgaKPE25fw4DHvD0MBzENf39BYRev3QcE'
 bot = telebot.TeleBot(token)
 
 def get_db(message):
@@ -12,7 +12,7 @@ def get_db(message):
     return db
 
 try:
-    database.connection()
+    # database.connection()
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
