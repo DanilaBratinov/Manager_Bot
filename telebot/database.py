@@ -40,7 +40,6 @@ def show_tasks(bot, message):
             task.append("🌵{time} – {name}".format(**row))
         
         connection.commit()
-        bot.send_message(message.chat.id, )
 
         tasks = ("\n".join(task))
         bot.send_message(message.chat.id, tasks)
