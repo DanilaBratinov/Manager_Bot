@@ -61,7 +61,7 @@ try:
                         
     #Дата
     def add_task_date(message):
-        task[2] = web.get_date('Сегодня')
+        task[2] = web.get_date(message.text)
 
         with database.connection.cursor() as cursor:
             cursor.execute(f"INSERT INTO id{message.chat.id} (time, name, date) VALUES ('{task[1]}', '{task[0]}', '{task[2]}');")
