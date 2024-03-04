@@ -1,6 +1,5 @@
 import telebot
 import messages
-import web
 from telebot import types
 
 token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'

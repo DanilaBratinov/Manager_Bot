@@ -1,6 +1,5 @@
 import web
 import news
-import database
 from user import get_name
 
 def hello(message):

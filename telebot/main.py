@@ -1,10 +1,8 @@
-import telebot
 import commands
 import database
 import messages
 
-token = '6556635188:AAHgGkjUlc_lzhdQt_QgvEYMtClLyLdOBQE'
-bot = telebot.TeleBot(token)
+bot = commands.bot
 
 def get_db(message):
     db = (f"id{message.from_user.id}")
@@ -22,17 +20,10 @@ try:
 
     @bot.message_handler(content_types=['text'])
     def send_message(message):
-        db = (f"id{message.from_user.id}")
         chatID = message.chat.id
         match message.text:
             case "Добавить задачу":
-                database.add_task(bot, message)
-                bot.register_next_step_handler(message, database.add_task_name(bot, message))
-                bot.register_next_step_handler(message, database.add_task_time(bot, message))
-                bot.register_next_step_handler(message, database.add_task_date(bot, message))
-
-
-
+                database.add_tasks(bot, message)
 
             case "Посмотреть задачи":
                 # bot.send_message(chatID, database.show_tasks(db))
