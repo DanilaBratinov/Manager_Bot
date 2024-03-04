@@ -31,4 +31,4 @@ def get_date(when):
             date = pendulum.today('Europe/Moscow').format('DD.MM')
         case 'Завтра':
             date = pendulum.tomorrow('Europe/Moscow').format('DD.MM')
-    return date
+    return date.format('DD.MM.YYYY')
