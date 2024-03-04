@@ -25,6 +25,7 @@ try:
             case "Добавить задачу":
                 database.add_tasks(message)
                 bot.register_next_step_handler(message, database.add_task_name(message))
+                bot.enable_save_next_step_handlers(delay=2)
                 bot.register_next_step_handler(message, database.add_task_time(message))
 
             case "Посмотреть задачи":
