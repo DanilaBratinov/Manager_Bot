@@ -1,10 +1,9 @@
 import web
 import database
-from commands import bot
 import news
 from user import get_name
 
-def hello(message):
+def hello(bot, message):
     hello_message = f"""
 ☘️Привет, {get_name(message)}☘️
 ***********************************

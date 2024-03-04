@@ -16,4 +16,4 @@ def start(message):
 
     markup.add(item1, item2, item3, item4)
 
-    bot.send_message(chatID, messages.hello(message))
+    bot.send_message(chatID, messages.hello(bot, message))

@@ -1,7 +1,6 @@
 import commands
 import database
 import messages
-import web
 bot = commands.bot
 
 def get_db(message):
@@ -34,7 +33,7 @@ try:
             case "Главная":
                 bot.send_message(chatID, messages.hello(message))
    
-   
+
 except Exception as ex:
     print("Ошибка подключения к базе данных...")
     print(ex)
