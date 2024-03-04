@@ -28,6 +28,49 @@ def create_table():
 
         connection.commit()
 
+
+task = ["", "", ""] 
+
+def add_tasks(message):
+    bot.send_message(message.chat.id, 'Введите название задачи:')
+    bot.register_next_step_handler(message, add_task_name)
+    #Название задачи
+    
+def add_task_name(message):
+    task[0] = message.text
+    bot.send_message(message.chat.id, "Введите время:")
+    bot.register_next_step_handler(message, add_task_time)
+
+    #Время
+def add_task_time(message):
+    task[1] = (message.text)
+
+    markup = commands.types.ReplyKeyboardMarkup(resize_keyboard = True)
+    item1 = commands.types.KeyboardButton('Сегодня')
+    item2 = commands.types.KeyboardButton('Завтра')
+
+    markup.add(item1, item2)
+
+    bot.send_message(message.chat.id, "Выберите дату:", reply_markup = markup)
+    bot.register_next_step_handler(message, add_task_date)
+                        
+    #Дата
+def add_task_date(message):
+    task[2] = web.get_date(message.text)
+
+    with connection.cursor() as cursor:
+        cursor.execute(f"INSERT INTO id{message.chat.id} (time, name, date) VALUES ('{task[1]}', '{task[0]}', '{task[2]}');")
+        connection.commit()
+
+        markup = commands.types.ReplyKeyboardMarkup(resize_keyboard = True)
+        item1 = commands.types.KeyboardButton('Добавить задачу')
+        item2 = commands.types.KeyboardButton('Посмотреть задачи')
+        item3 = commands.types.KeyboardButton('Очистить список')
+        item4 = commands.types.KeyboardButton('Главная')
+
+        markup.add(item1, item2, item3, item4)
+        bot.send_message(message.chat.id, f"Добавлена задача: *{task[0]}*", parse_mode="Markdown", reply_markup = markup)
+
 # Show today tasks
 def show_tasks(bot, message):
     with connection.cursor() as cursor:
@@ -43,7 +86,6 @@ def show_tasks(bot, message):
 
         tasks = ("\n".join(task))
         bot.send_message(message.chat.id, tasks)
-        # return ("\n".join(task))
     
 # Clear all task
 def clear_db(bot, message):
