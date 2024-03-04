@@ -14,7 +14,7 @@ try:
     @bot.message_handler(commands=['start'])
     def start_message(message):
         db = (f"id{message.from_user.id}")
-        database.create_table(db)
+        database.create_table(message)
         commands.start(message)
 
 
