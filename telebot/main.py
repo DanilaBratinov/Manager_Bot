@@ -12,7 +12,8 @@ def get_db(message):
     return db
 
 try:
-    database.do_connection()
+    # database.do_connection()
+    database.connection
 
     @bot.message_handler(commands=['start'])
     def start_message(message):
