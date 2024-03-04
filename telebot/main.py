@@ -24,6 +24,8 @@ try:
         match message.text:
             case "Добавить задачу":
                 database.add_tasks(message)
+                bot.register_next_step_handler(message, database.add_task_name(message))
+                bot.register_next_step_handler(message, database.add_task_time(message))
 
             case "Посмотреть задачи":
                 # bot.send_message(chatID, database.show_tasks(db))
