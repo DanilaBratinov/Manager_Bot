@@ -6,7 +6,7 @@ bot = commands.bot
 
 def get_db(message):
     db = (f"id{message.from_user.id}")
-    return db
+    return str(db)
 
 try:
     database.connection
