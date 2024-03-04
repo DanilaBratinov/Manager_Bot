@@ -57,11 +57,11 @@ try:
         markup.add(item1, item2)
 
         bot.send_message(message.chat.id, "Выберите дату:", reply_markup = markup)
-        bot.register_next_step_handler(message, add_task_date(message))
+        bot.register_next_step_handler(message, add_task_date)
                         
     #Дата
     def add_task_date(message):
-        task[2] = web.get_date('Сегодня').format('DD.MM.YYYY')
+        task[2] = web.get_date('Сегодня')
 
         with database.connection.cursor() as cursor:
             cursor.execute(f"INSERT INTO id{message.chat.id} (time, name, date) VALUES ('{task[1]}', '{task[0]}', '{task[2]}');")

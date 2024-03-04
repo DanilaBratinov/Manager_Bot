@@ -46,10 +46,9 @@ def show_tasks(bot, message):
         # return ("\n".join(task))
     
 # Clear all task
-def clear_db(db, bot, message):
-
+def clear_db(bot, message):
     with connection.cursor() as cursor:
-        cursor.execute(f"DELETE FROM {str(get_db)};")
+        cursor.execute(f"DELETE FROM id{message.chat.id};")
         connection.commit()
 
     bot.send_message(message.chat.id, "Список очищен!")
