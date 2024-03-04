@@ -1,6 +1,7 @@
 import commands
 import database
 import messages
+
 bot = commands.bot
 
 def get_db(message):
