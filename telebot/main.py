@@ -29,7 +29,7 @@ try:
                 database.show_tasks(bot, message)
 
             case "Очистить список":
-                database.clear_db(get_db, bot, message)
+                database.clear_db(bot, message)
                 # bot.send_message(chatID, "Список очищен")
 
             case "Главная":
