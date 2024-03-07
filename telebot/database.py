@@ -80,24 +80,28 @@ def show_tasks(bot, message):
         for row in rows:
             task.append("🌵{time} – {name}".format(**row))
         
-        # connection.commit()
+        connection.commit()
 
         tasks = ("\n".join(task))
 
-        select_all_rows2 = f"SELECT time, name, date FROM id{message.chat.id} WHERE date = '{web.get_date('Завтра')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
-        cursor.execute(select_all_rows2)
-        rows2 = cursor.fetchall()
-        task2 = ['']
+        bot.send_message(message.chat.id, tasks)
 
-        for row in rows2:
+    with connection.cursor() as cursor:
+        select_all_rows = f"SELECT time, name, date FROM id{message.chat.id} WHERE date = '{web.get_date('Завтра')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
+        cursor.execute(select_all_rows)
+        rows = cursor.fetchall()
+        task = ['']
+
+        for row in rows:
             task.append("🌵{time} – {name}".format(**row))
         
         connection.commit()
 
-        tasks2 = ("\n".join(task2))
-        # request = (f"{tasks}\n{tasks2}")
+        tasks = ("\n".join(task))
+
         bot.send_message(message.chat.id, tasks)
-        bot.send_message(message.chat.id, tasks2)
+
+    
     
 # Clear all task
 def clear_db(bot, message):
