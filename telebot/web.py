@@ -15,7 +15,7 @@ def get_weather(locate):
     temperature = data['main']['temp']
     temperature2 = data2['main']['temp']
 
-    weather = f'☃️Температура в {locate}: {temperature}°C\n☃️Температура дома: {temperature2}°C\n'
+    weather = f'☃️Температура в {locate}: {temperature}°C\n☃️Температура дома: {temperature2}°C'
     return weather
 
 def get_usd_to_rub_exchange_rate():
