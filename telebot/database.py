@@ -84,7 +84,7 @@ def show_tasks(bot, message):
 
         tasks = ("\n".join(task))
 
-        bot.send_message(message.chat.id, tasks)
+        bot.send_message(message.chat.id, f"*Задачи на сегодня:*\n{tasks}", parse_mode="Markdown")
 
     with connection.cursor() as cursor:
         select_all_rows = f"SELECT time, name, date FROM id{message.chat.id} WHERE date = '{web.get_date('Завтра')}' ORDER BY STR_TO_DATE(time, '%H:%i');"
@@ -99,7 +99,7 @@ def show_tasks(bot, message):
 
         tasks = ("\n".join(task))
 
-        bot.send_message(message.chat.id, tasks)
+        bot.send_message(message.chat.id, f"*Задачи на завтра:*\n{tasks}", parse_mode="Markdown")
 
     
     
