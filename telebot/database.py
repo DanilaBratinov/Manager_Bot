@@ -95,9 +95,9 @@ def show_tasks(bot, message):
         connection.commit()
 
         tasks2 = ("\n".join(task2))
-        request = (f"{tasks}\n{tasks2}")
-        # bot.send_message(message.chat.id, tasks)
-        bot.send_message(message.chat.id, request)
+        # request = (f"{tasks}\n{tasks2}")
+        bot.send_message(message.chat.id, tasks)
+        bot.send_message(message.chat.id, tasks2)
     
 # Clear all task
 def clear_db(bot, message):
